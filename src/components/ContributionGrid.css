@@ -1,0 +1,36 @@
+.contribution-grid-container {
+    /* This container handles background and padding for the export */
+    background-color: #ffffff;
+    padding: 20px;
+    display: inline-block;
+    border-radius: 6px;
+}
+
+.contribution-grid {
+    display: flex;
+    gap: 3px;
+    /* Gap between columns */
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    /* Gap between rows */
+}
+
+.grid-cell {
+    width: 14px;
+    /* Standard GitHub cell size is roughly 10-12px, using 14px for visibility */
+    height: 14px;
+    border-radius: 2px;
+    background-color: #ebedf0;
+    cursor: pointer;
+    transition: transform 0.05s ease;
+}
+
+.grid-cell:hover {
+    transform: scale(1.2);
+    z-index: 1;
+    border: 1px solid rgba(27, 31, 35, 0.05);
+}

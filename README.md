@@ -2,6 +2,8 @@
 
 A beautiful, interactive tool to paint and export custom GitHub-style contribution graphs.
 
+<img width="1500" height="500" alt="Image" src="https://github.com/user-attachments/assets/eb28fc6b-22b2-4aa1-b42a-5acf3170710d" />
+
 ## Features
 
 - **Interactive Painting**: Click or drag across the grid to paint cells with different contribution levels.

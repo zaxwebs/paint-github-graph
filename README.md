@@ -10,7 +10,6 @@ A beautiful, interactive tool to paint and export custom GitHub-style contributi
 - **GitHub Accurate**: Uses the same color palette and grid layout as GitHub's actual contribution graph.
 - **Authentic Typography**: Renders using GitHub's exact system font stack for a native look.
 - **High-Quality Export**: 1500x500 PNG export, perfectly scaled and centered for sharing.
-- **Responsive Layout**: Optimized for desktop with a focused editing experience.
 
 ## Tech Stack
 

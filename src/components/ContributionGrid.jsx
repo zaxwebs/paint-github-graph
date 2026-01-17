@@ -111,6 +111,19 @@ const ContributionGrid = ({ data, onInteract, gridRef }) => {
                     {renderBodyRows()}
                 </tbody>
             </table>
+            <div className="contribution-legend">
+                <span className="legend-text">Less</span>
+                <ul className="legend-colors">
+                    {COLORS.map((color, index) => (
+                        <li
+                            key={`legend-color-${index}`}
+                            style={{ backgroundColor: color }}
+                            aria-label={`Contribution level ${index}`}
+                        />
+                    ))}
+                </ul>
+                <span className="legend-text">More</span>
+            </div>
         </div>
     );
 };

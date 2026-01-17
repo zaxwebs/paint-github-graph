@@ -12,14 +12,10 @@ function App() {
 
   const handleInteract = (col, row, isClick) => {
     const key = `${col}-${row}`;
-    setGridData((prev) => {
-      // Optimization: don't update if value is same
-      if (prev[key] === selectedColor) return prev;
-      return {
-        ...prev,
-        [key]: selectedColor
-      };
-    });
+    setGridData((prev) => ({
+      ...prev,
+      [key]: selectedColor
+    }));
   };
 
   const handleExport = async () => {

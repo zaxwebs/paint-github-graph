@@ -65,6 +65,51 @@
   box-shadow: inset 0 1px 0 rgba(27, 31, 35, 0.2);
 }
 
+/* History Buttons */
+.history-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.history-btn {
+  background-color: #f6f8fa;
+  color: #24292f;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(27, 31, 35, 0.04);
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+}
+
+.history-btn:hover:not(:disabled) {
+  background-color: #ebecf0;
+  border-color: rgba(27, 31, 35, 0.15);
+}
+
+.history-btn:active:not(:disabled) {
+  background-color: #dfe1e5;
+  box-shadow: inset 0 1px 0 rgba(27, 31, 35, 0.1);
+}
+
+.history-btn:disabled {
+  color: #8c959f;
+  background-color: #f6f8fa;
+  border-color: rgba(27, 31, 35, 0.15);
+  cursor: default;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+
 /* Canvas Area */
 .canvas-area {
   display: flex;

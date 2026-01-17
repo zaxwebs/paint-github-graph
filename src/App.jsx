@@ -1,5 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { toPng } from 'html-to-image';
+import { Undo, Redo } from 'lucide-react';
 import ContributionGrid from './components/ContributionGrid';
 import ColorPalette from './components/ColorPalette';
 import './App.css';
@@ -9,13 +10,87 @@ function App() {
   const [selectedColor, setSelectedColor] = useState(1);
   const gridRef = useRef(null);
 
+  // History State
+  const [history, setHistory] = useState([{}]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+
+  // Refs for tracking drag state and current data without re-triggering effects
+  const isDrawingRef = useRef(false);
+  const gridDataRef = useRef({});
+
+  // Sync gridDataRef with gridData
+  useEffect(() => {
+    gridDataRef.current = gridData;
+  }, [gridData]);
+
+  const undo = useCallback(() => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      setHistoryIndex(newIndex);
+      setGridData(history[newIndex]);
+    }
+  }, [historyIndex, history]);
+
+  const redo = useCallback(() => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      setHistoryIndex(newIndex);
+      setGridData(history[newIndex]);
+    }
+  }, [historyIndex, history]);
+
   const handleInteract = (col, row) => {
+    isDrawingRef.current = true;
     const key = `${col}-${row}`;
-    setGridData((prev) => ({
-      ...prev,
-      [key]: selectedColor
-    }));
+    setGridData((prev) => {
+      // Optimization: if color hasn't changed, don't update state
+      if (prev[key] === selectedColor) return prev;
+      return {
+        ...prev,
+        [key]: selectedColor
+      };
+    });
   };
+
+  // Global Event Listeners for MouseUp (end of stroke) and Keyboard Shortcuts
+  useEffect(() => {
+    const handleMouseUp = () => {
+      if (isDrawingRef.current) {
+        isDrawingRef.current = false;
+        const currentGrid = gridDataRef.current;
+        const previousGrid = history[historyIndex];
+
+        // Only push to history if state actually changed
+        if (JSON.stringify(currentGrid) !== JSON.stringify(previousGrid)) {
+          const newHistory = history.slice(0, historyIndex + 1);
+          newHistory.push(currentGrid);
+          setHistory(newHistory);
+          setHistoryIndex(newHistory.length - 1);
+        }
+      }
+    };
+
+    const handleKeyDown = (e) => {
+      // Undo: Ctrl+Z
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey) {
+        e.preventDefault();
+        undo();
+      }
+      // Redo: Ctrl+Y or Ctrl+Shift+Z
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
+        e.preventDefault();
+        redo();
+      }
+    };
+
+    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [history, historyIndex, undo, redo]);
 
   const handleExportFixedSize = async () => {
     if (!gridRef.current) return;
@@ -99,6 +174,28 @@ function App() {
             selectedColor={selectedColor}
             onColorSelect={setSelectedColor}
           />
+
+          <div className="history-controls">
+            <button
+              className="history-btn"
+              onClick={undo}
+              disabled={historyIndex <= 0}
+              title="Undo (Ctrl+Z)"
+              aria-label="Undo"
+            >
+              <Undo size={16} />
+            </button>
+            <button
+              className="history-btn"
+              onClick={redo}
+              disabled={historyIndex >= history.length - 1}
+              title="Redo (Ctrl+Y or Ctrl+Shift+Z)"
+              aria-label="Redo"
+            >
+              <Redo size={16} />
+            </button>
+          </div>
+
           <button className="export-btn" onClick={handleExportFixedSize}>
             Export PNG
           </button>

@@ -1,16 +1,49 @@
-# React + Vite
+# GitHub Contribution Graph Painter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A beautiful, interactive tool to paint and export custom GitHub-style contribution graphs.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Interactive Painting**: Click or drag across the grid to paint cells with different contribution levels.
+- **GitHub Accurate**: Uses the same color palette and grid layout as GitHub's actual contribution graph.
+- **Authentic Typography**: Renders using GitHub's exact system font stack for a native look.
+- **High-Quality Export**: 1500x500 PNG export, perfectly scaled and centered for sharing.
+- **Responsive Layout**: Optimized for desktop with a focused editing experience.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React**: Modern component-based UI.
+- **Vite**: Ultra-fast build tool and development server.
+- **html-to-image**: For high-fidelity canvas rendering and export.
+- **Vanilla CSS**: Clean, performant styling.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+```bash
+# Install dependencies
+npm install
+```
+
+### Development
+
+```bash
+# Start development server
+npm run dev
+```
+
+### Production
+
+```bash
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```

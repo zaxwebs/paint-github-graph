@@ -1,19 +1,18 @@
 /* GitHub Contribution Graph Styles */
-/* Matches GitHub's official contribution graph implementation */
 
 .contribution-grid-container {
-    background-color: #ffffff;
-    padding: 16px;
+    background-color: transparent;
+    padding: 0;
     display: inline-block;
-    border-radius: 6px;
-    border: 1px solid #d0d7de;
+    border: none;
     user-select: none;
 }
 
 .contribution-table {
     border-spacing: 3px;
     border-collapse: separate;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    font-family: inherit;
+    /* Inherit Inter */
 }
 
 /* Header Row */
@@ -30,14 +29,14 @@
     text-align: left;
     vertical-align: bottom;
     font-size: 12px;
-    color: #57606a;
+    color: #656d76;
     font-weight: 400;
     position: relative;
 }
 
 .month-label-text {
     font-size: 12px;
-    color: #57606a;
+    color: #656d76;
     font-weight: 400;
     display: block;
     white-space: nowrap;
@@ -56,7 +55,7 @@
 
 .day-label-text {
     font-size: 12px;
-    color: #57606a;
+    color: #656d76;
     font-weight: 400;
     display: block;
     height: 10px;
@@ -84,13 +83,16 @@
     border-radius: 2px;
     background-color: #ebedf0;
     cursor: pointer;
-    outline: 1px solid rgba(27, 31, 35, 0.06);
+    outline: 1px solid rgba(27, 31, 35, 0.04);
     outline-offset: -1px;
-    transition: outline 0.1s ease;
+    transition: all 0.1s ease;
 }
 
 .grid-cell:hover {
-    outline: 1px solid rgba(27, 31, 35, 0.3);
+    outline: 2px solid rgba(27, 31, 35, 0.4);
+    z-index: 1;
+    /* Bring to front on hover */
+    position: relative;
 }
 
 /* Ensure cells don't collapse */

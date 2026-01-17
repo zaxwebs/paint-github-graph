@@ -2,25 +2,29 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 24px;
+  /* margin-bottom removed, handled by parent gap */
 }
 
 .palette-label {
-  font-size: 14px;
-  color: #24292e;
-  font-weight: 600;
+  font-size: 13px;
+  /* Slightly smaller */
+  color: #656d76;
+  /* Muted text */
+  font-weight: 500;
 }
 
 .palette-options {
   display: flex;
-  gap: 8px;
+  gap: 4px;
+  /* Tighter spacing */
 }
 
 .palette-swatch {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  /* Slightly smaller swatches */
+  height: 20px;
   border: 1px solid rgba(27, 31, 35, 0.06);
-  border-radius: 4px; /* Slightly rounded squares */
+  border-radius: 3px;
   cursor: pointer;
   transition: transform 0.1s ease, border-color 0.1s ease;
   padding: 0;
@@ -28,16 +32,15 @@
 
 .palette-swatch:hover {
   transform: scale(1.1);
-  border-color: rgba(27, 31, 35, 0.15);
+  border-color: rgba(27, 31, 35, 0.3);
 }
 
 .palette-swatch.active {
-  border: 2px solid #0366d6; /* Blue highlight for active selection */
-  box-shadow: 0 0 0 2px rgba(3, 102, 214, 0.3);
+  border: 2px solid #0969da;
   transform: scale(1.1);
 }
 
 .palette-swatch:focus-visible {
-  outline: 2px solid #0366d6;
-  outline-offset: 2px;
+  outline: 2px solid #0969da;
+  outline-offset: 1px;
 }

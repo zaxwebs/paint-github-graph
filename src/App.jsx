@@ -99,19 +99,14 @@ function App() {
     const targetWidth = 1500;
     const targetHeight = 500;
 
-    // We need to temporarily style the node or clone it.
-    // html-to-image clones the node. We can modify the clone.
-    // But we can't easily hook into the clone step deeply.
-    // Strategy: Render a hidden export container that is strictly 1500x500, 
-    // contains the grid scaled up.
-    // But we can't easily sync state to a hidden container without duplicating component.
-
-    // Best bet: use the filter/style options to transform during capture.
-    // Or: Capture the natural size, then draw that image onto a 1500x500 canvas and save.
-    // This is much more reliable for exact dimensions.
-
     try {
-      const rawDataUrl = await toPng(node, { backgroundColor: 'white' });
+      // Capture at a high resolution (3x) so it stays crisp when we draw it on the large canvas
+      const rawDataUrl = await toPng(node, {
+        backgroundColor: 'white',
+        pixelRatio: 3,
+        cacheBust: true,
+      });
+
       const img = new Image();
       img.src = rawDataUrl;
       img.onload = () => {
@@ -125,8 +120,8 @@ function App() {
         ctx.fillRect(0, 0, targetWidth, targetHeight);
 
         // Draw image centered and scaled
-        const aspect = img.width / img.height;
-        const targetAspect = targetWidth / targetHeight;
+        // Use the smaller scale to fit within both dimensions without distortion
+        // but since we captured at 3x, the source image is large.
 
         let drawWidth, drawHeight;
 
@@ -143,7 +138,6 @@ function App() {
         const x = (targetWidth - drawWidth) / 2;
         const y = (targetHeight - drawHeight) / 2;
 
-        // Turn off smoothing for pixel art look? No, rounded corners need smoothing.
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
 
@@ -157,14 +151,15 @@ function App() {
       };
     } catch (e) {
       console.error(e);
+      alert('Export failed. Please try again.');
     }
   };
 
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>GitHub Contribution Graph Drawer</h1>
-        <p>Draw your commit history and export it.</p>
+        <h1>GitHub Contribution Graph Painter</h1>
+        <p>Paint your commit history and export it.</p>
       </header>
 
       <main className="app-main">
@@ -174,7 +169,7 @@ function App() {
             onColorSelect={setSelectedColor}
           />
           <button className="export-btn" onClick={handleExportFixedSize}>
-            Export PNG (1500x500)
+            Export PNG
           </button>
         </div>
 

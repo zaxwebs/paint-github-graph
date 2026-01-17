@@ -1,22 +1,27 @@
-/* GitHub Contribution Graph Styles */
-
+/* Contribution Grid Container */
 .contribution-grid-container {
-    background-color: transparent;
-    padding: 0;
     display: inline-block;
+    padding: 0;
     border: none;
+    background-color: transparent;
     user-select: none;
-    /* GitHub's exact system font stack */
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
+/* Table */
 .contribution-table {
     border-spacing: 3px;
     border-collapse: separate;
     font-family: inherit;
 }
 
-/* Header Row */
+.contribution-table td,
+.contribution-table th {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Month Header Row */
 .grid-header-row {
     height: 15px;
 }
@@ -30,20 +35,19 @@
     text-align: left;
     vertical-align: bottom;
     font-size: 12px;
-    color: #656d76;
     font-weight: 400;
+    color: #656d76;
     position: relative;
 }
 
 .month-label-text {
-    font-size: 12px;
-    color: #656d76;
-    font-weight: 400;
-    display: block;
-    white-space: nowrap;
     position: absolute;
     left: 0;
     bottom: 2px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #656d76;
+    white-space: nowrap;
 }
 
 /* Day Labels (Left Column) */
@@ -55,13 +59,13 @@
 }
 
 .day-label-text {
-    font-size: 12px;
-    color: #656d76;
-    font-weight: 400;
     display: block;
     height: 10px;
-    line-height: 10px;
     padding-right: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 10px;
+    color: #656d76;
     text-align: right;
 }
 
@@ -83,24 +87,16 @@
     height: 10px;
     border-radius: 2px;
     background-color: #ebedf0;
-    cursor: pointer;
     outline: 1px solid rgba(27, 31, 35, 0.04);
     outline-offset: -1px;
-    transition: all 0.1s ease;
+    cursor: pointer;
+    transition: outline 0.1s ease;
 }
 
 .grid-cell:hover {
-    outline: 2px solid rgba(27, 31, 35, 0.4);
-    z-index: 1;
-    /* Bring to front on hover */
     position: relative;
-}
-
-/* Ensure cells don't collapse */
-td,
-th {
-    padding: 0;
-    box-sizing: border-box;
+    z-index: 1;
+    outline: 2px solid rgba(27, 31, 35, 0.4);
 }
 
 /* Legend */
@@ -110,11 +106,9 @@ th {
     justify-content: flex-end;
     gap: 4px;
     margin-top: 8px;
-    /* Spacing from grid */
+    padding-right: 30px;
     font-size: 12px;
     color: #656d76;
-    padding-right: 30px;
-    /* Align slightly inwards if needed, or consistent with grid edge */
 }
 
 .legend-text {
@@ -123,10 +117,10 @@ th {
 
 .legend-colors {
     display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
     gap: 3px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .legend-colors li {

@@ -51,7 +51,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 24px;
   background: white;
   padding: 16px 24px;
@@ -109,7 +109,7 @@ body {
 .mobile-message {
   display: none;
   text-align: center;
-  padding: 40px;
+  padding: 2rem 1rem;
   background: white;
   border: 1px solid #d0d7de;
   border-radius: 8px;
@@ -119,9 +119,11 @@ body {
 }
 
 .mobile-message h2 {
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: #1f2328;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   margin-top: 0;
 }
 

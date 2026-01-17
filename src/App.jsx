@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { toPng } from 'html-to-image';
-import { Undo, Redo } from 'lucide-react';
+import { Undo, Redo, Trash2 } from 'lucide-react';
 import ContributionGrid from './components/ContributionGrid';
 import ColorPalette from './components/ColorPalette';
 import './App.css';
@@ -13,6 +13,17 @@ function App() {
   // History State
   const [history, setHistory] = useState([{}]);
   const [historyIndex, setHistoryIndex] = useState(0);
+
+  // Modal State
+  const [showClearModal, setShowClearModal] = useState(false);
+
+  // Modal focus trap refs
+  const modalRef = useRef(null);
+  const cancelBtnRef = useRef(null);
+  const confirmBtnRef = useRef(null);
+
+  // Computed: check if grid is empty
+  const isGridEmpty = Object.keys(gridData).length === 0;
 
   // Refs for tracking drag state and current data without re-triggering effects
   const isDrawingRef = useRef(false);
@@ -38,6 +49,52 @@ function App() {
       setGridData(history[newIndex]);
     }
   }, [historyIndex, history]);
+
+  const handleClear = useCallback(() => {
+    const clearedState = {};
+    setGridData(clearedState);
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(clearedState);
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+    setShowClearModal(false);
+  }, [history, historyIndex]);
+
+  // Modal focus trap and keyboard handling
+  useEffect(() => {
+    if (!showClearModal) return;
+
+    // Focus the cancel button when modal opens
+    cancelBtnRef.current?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setShowClearModal(false);
+        return;
+      }
+
+      if (e.key === 'Tab') {
+        const focusableElements = [cancelBtnRef.current, confirmBtnRef.current].filter(Boolean);
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showClearModal]);
 
   const handleInteract = (col, row) => {
     isDrawingRef.current = true;
@@ -194,6 +251,15 @@ function App() {
             >
               <Redo size={16} />
             </button>
+            <button
+              className="history-btn clear-btn"
+              onClick={() => setShowClearModal(true)}
+              disabled={isGridEmpty}
+              title="Clear All"
+              aria-label="Clear All"
+            >
+              <Trash2 size={16} />
+            </button>
           </div>
 
           <button className="export-btn" onClick={handleExportFixedSize}>
@@ -212,6 +278,38 @@ function App() {
         <div className="instructions">
           <p>Click or drag to paint cells. Select colors from the palette above.</p>
         </div>
+
+        {/* Clear Confirmation Modal */}
+        {showClearModal && (
+          <div
+            className="modal-overlay"
+            onClick={() => setShowClearModal(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+          >
+            <div className="modal" ref={modalRef} onClick={(e) => e.stopPropagation()}>
+              <h2 id="modal-title">Clear Canvas?</h2>
+              <p>This will remove all painted cells. This action can be undone.</p>
+              <div className="modal-actions">
+                <button
+                  ref={cancelBtnRef}
+                  className="modal-btn modal-btn-cancel"
+                  onClick={() => setShowClearModal(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  ref={confirmBtnRef}
+                  className="modal-btn modal-btn-confirm"
+                  onClick={handleClear}
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

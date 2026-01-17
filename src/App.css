@@ -109,6 +109,100 @@
   opacity: 0.7;
 }
 
+.clear-btn:hover:not(:disabled) {
+  background-color: #ffebe9;
+  border-color: rgba(164, 14, 38, 0.5);
+  color: #a40e26;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(27, 31, 35, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2328;
+}
+
+.modal p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #656d76;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.modal-btn-cancel {
+  background: #f6f8fa;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  color: #24292f;
+}
+
+.modal-btn-cancel:hover {
+  background: #ebecf0;
+}
+
+.modal-btn-confirm {
+  background: #cf222e;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  color: white;
+}
+
+.modal-btn-confirm:hover {
+  background: #a40e26;
+}
+
 
 /* Canvas Area */
 .canvas-area {

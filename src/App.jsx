@@ -101,10 +101,12 @@ function App() {
 
     try {
       // Capture at a high resolution (3x) so it stays crisp when we draw it on the large canvas
+      // skipFonts: true prevents CORS errors from cross-origin stylesheets (Google Fonts)
       const rawDataUrl = await toPng(node, {
         backgroundColor: 'white',
         pixelRatio: 3,
         cacheBust: true,
+        skipFonts: true,
       });
 
       const img = new Image();
@@ -163,6 +165,10 @@ function App() {
       </header>
 
       <main className="app-main">
+        <div className="mobile-message">
+          <h2>Desktop Only</h2>
+          <p>This app is only available on larger screens.</p>
+        </div>
         <div className="controls">
           <ColorPalette
             selectedColor={selectedColor}

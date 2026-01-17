@@ -6,13 +6,14 @@
     display: inline-block;
     border: none;
     user-select: none;
+    /* GitHub's exact system font stack */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 .contribution-table {
     border-spacing: 3px;
     border-collapse: separate;
     font-family: inherit;
-    /* Inherit Inter */
 }
 
 /* Header Row */

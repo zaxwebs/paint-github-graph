@@ -49,6 +49,7 @@ body {
 
 .controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 24px;
@@ -102,4 +103,53 @@ body {
   color: #656d76;
   font-size: 13px;
   text-align: center;
+}
+
+/* Mobile Message Details */
+.mobile-message {
+  display: none;
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mobile-message h2 {
+  font-size: 20px;
+  color: #1f2328;
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+.mobile-message p {
+  color: #656d76;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+
+  .controls,
+  .canvas-area,
+  .instructions {
+    display: none !important;
+  }
+
+  .mobile-message {
+    display: block;
+  }
+
+  .app-main {
+    width: 100%;
+  }
+
+  /* Reset some paddings on body for mobile */
+  #root {
+    padding: 20px;
+  }
 }
